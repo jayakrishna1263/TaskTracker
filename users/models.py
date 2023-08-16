@@ -42,5 +42,21 @@ class Team(models.Model):
     def __str__(self):
       return "{}".format(self.team_name,self.team_lead)
   
+class Task(models.Model):
+    task_name=models.CharField(max_length=100)
+    team_id=models.ForeignKey(Team, on_delete=models.SET_NULL,null=True,related_name="tasks")
+    status=models.IntegerField(STATUS_CHOICES,default = '1')
+    start_at=models.DateTimeField(auto_now_add=True)
+    completed_at=models.DateTimeField(null=True,blank=True)# ToDo
 
+
+class TeamMember(models.Model):
+    member_id=models.ForeignKey(CustomUser, on_delete=models.CASCADE,limit_choices_to={'role': 3})
+    team_id=models.ForeignKey(Team, on_delete=models.CASCADE)
+
+
+class TaskAssignment(models.Model):
+    task_id=models.ForeignKey(Task, on_delete=models.CASCADE)
+    member_id=models.ForeignKey(CustomUser, on_delete=models.CASCADE,limit_choices_to={'role': 3})
+    
 
