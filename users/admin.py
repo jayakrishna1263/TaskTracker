@@ -16,7 +16,7 @@ class TeamAdminConfig(admin.ModelAdmin):
 class TaskAdminConfig(admin.ModelAdmin):
     model = Task
     list_display = ('id','task_name','team_id', 'status',
-                    'start_at')
+                    'start_at','completed_at')
 
 
 admin.site.register(CustomUser,UserAdminConfig)

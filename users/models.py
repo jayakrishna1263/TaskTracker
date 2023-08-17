@@ -1,7 +1,7 @@
-from datetime import timezone
+
 from django.db import models
 from . import manager
-
+from django.utils import timezone
 from django.contrib.auth.models import AbstractUser,PermissionsMixin
 
 # Create your models here.
@@ -49,14 +49,29 @@ class Task(models.Model):
     start_at=models.DateTimeField(auto_now_add=True)
     completed_at=models.DateTimeField(null=True,blank=True)# ToDo
 
+    @property
+    def is_completed(self):
+        return self.status == 5
+    def save(self, *args, **kwargs):
+        if self.status == 5 and not self.completed_at:
+            self.completed_at = timezone.now()
+        elif self.status != 5 :
+            self.completed_at = None
+        super().save(*args, **kwargs)
 
 class TeamMember(models.Model):
     member_id=models.ForeignKey(CustomUser, on_delete=models.CASCADE,limit_choices_to={'role': 3})
     team_id=models.ForeignKey(Team, on_delete=models.CASCADE)
+    
+    class Meta:
+       unique_together = ("member_id", "team_id")
 
 
 class TaskAssignment(models.Model):
     task_id=models.ForeignKey(Task, on_delete=models.CASCADE)
     member_id=models.ForeignKey(CustomUser, on_delete=models.CASCADE,limit_choices_to={'role': 3})
+    
+    class Meta:
+       unique_together = ("task_id", "member_id")
     
 
