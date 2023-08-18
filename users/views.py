@@ -35,5 +35,30 @@ class TeamAPI(APIView):
         serializer =TeamSerializer(objs,many=True)
         print(request.user)
         return Response(serializer.data)
+    def post(self,request):
+        data=request.data
+        team_lead=CustomUser.objects.get(id=data.get('team_lead'))
+        
+        data['team_lead']=team_lead
+        print("*****1")
+        print(data['team_lead'])
+        print("*****1")
+        # data.team_lead=team_lead
+        # setattr(data, "team_lead", team_lead)
+        serializer=TeamSerializer(data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors)
+
+class TaskAPI(APIView):
+    # permission_classes = [IsAuthenticated]
+    # authentication_classes = [TokenAuthentication, BasicAuthentication]
+    def get(self,request):
+        objs=Task.objects.all()
+        serializer =TaskSerializer(objs,many=True)
+        print(request.user)
+        return Response(serializer.data)
+    
 
 

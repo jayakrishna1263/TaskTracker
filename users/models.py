@@ -30,7 +30,7 @@ class CustomUser(AbstractUser,PermissionsMixin):
   REQUIRED_FIELDS = ['email','role']
   
   def __str__(self):
-      return self.username
+      return "{}".format(self.username+self.role)
   
 class Team(models.Model):
     team_name=models.CharField(max_length=100,unique = True)
