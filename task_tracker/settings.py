@@ -142,3 +142,16 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # } 
 
 AUTH_USER_MODEL="users.CustomUser"
+
+
+EMAIL_BACKEND ='django.core.mail.backends.smtp.EmailBackend'
+#add your host of the email here in this case its Gmail so we are going to use Gmail host
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_USE_TLS = True
+#add the port number of the email server
+EMAIL_PORT = 587
+#add your gamil here
+EMAIL_HOST_USER = 'enter your mail'
+#add your password here
+EMAIL_HOST_PASSWORD = 'enter your password'
+DEFAULT_FROM_EMAIL='enter your default mail'

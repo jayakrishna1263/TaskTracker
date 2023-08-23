@@ -1,9 +1,11 @@
 from users.models import CustomUser,Team,Task,TeamMember,TaskAssignment
+from users.tasks import send_confirmation_email_task
 
 from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404
 
 from rest_framework import serializers
+
 
 class CustomUserSerializer(serializers.ModelSerializer):
     class Meta:
@@ -23,6 +25,8 @@ class CustomUserSerializer(serializers.ModelSerializer):
         user=CustomUser.objects.create(username=validated_data['username'],email=validated_data['email'],role=validated_data['role'])
         user.set_password(validated_data['password'])
         user.save()
+        
+        send_confirmation_email_task(user.username, user.email,user.role)
         return validated_data 
     
 class TeamSerializer(serializers.ModelSerializer):
