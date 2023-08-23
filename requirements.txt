@@ -1,0 +1,110 @@
+users:
+
+    get:[
+            {
+                "username": "jk1",
+                "email": "jk1@gmail.com",
+                "password": "pbkdf2_sha256$600000$wVwagnYEN3raKd1migKryS$0202sXbCpt5WJ1lQVG1ffKw4NllHsJAxcT4kvSoKyNo=",
+                "role": "Manager"
+            },
+            {
+
+            },
+        ]
+
+    post:{
+            "username": "tm10",
+            "email": "tm10@gmail.com",
+            "password": "12344321",
+            "role": "Team member"
+        }
+
+Team:
+
+    get:[
+            {
+                "team_name": "team1",
+                "team_members": [
+                    {
+                        "username": "tm1",
+                        "email": "tm1@gmail.com",
+                        "password": "pbkdf2_sha256$600000$7QpHhBfUFPvIbkEa4ccg8X$2bIul03a2LkoyPMRwxRn0N3Pd47r6u7ZwtZNj4vXMvk=",
+                        "role": "Team memeber"
+                    },
+                    {
+                        "username": "tm2",
+                        "email": "tm2@gmail.com",
+                        "password": "pbkdf2_sha256$600000$hG7skf725tMdSjleqzZmhN$oJYoJMvq4rJ89/CurFY5e0cujDaHttIma7NkDc+I1ig=",
+                        "role": "Team memeber"
+                    }
+                ],
+                "team_lead": {
+                    "username": "tl1",
+                    "email": "tl1@gmail.com",
+                    "password": "pbkdf2_sha256$600000$L21lqJ7111PRYMK46T6vJH$XYY9/7aeKOaAjU6gGuqFVaMxwqGjHrzr/jVlKvagR7Y=",
+                    "role": "Team leader"
+                }
+            },
+            {
+            
+            },
+        ]
+    post:{
+            "team_name": "team8",
+            "team_lead":"tl2",
+            "team_members": ["tm1","tm2"]
+            
+        }
+    put/patch:{
+            "team_name": "team8",
+            "team_lead":"tl2",
+            "members_remove":[],
+            "members_add":[]
+
+        }
+
+Task:
+    get:[
+            {
+                "task_name": "task1",
+                "team_id": 1,
+                "status": "Assigned",
+                "start_at": "2023-08-16T17:23:02.384183Z",
+                "completed_at": null,
+                "task_members": [
+                    {
+                        "username": "tm1",
+                        "email": "tm1@gmail.com",
+                        "password": "pbkdf2_sha256$600000$7QpHhBfUFPvIbkEa4ccg8X$2bIul03a2LkoyPMRwxRn0N3Pd47r6u7ZwtZNj4vXMvk=",
+                        "role": "Team memeber"
+                    }
+                ]
+            },
+            {
+                "task_name": "task2",
+                "team_id": 1,
+                "status": "Done",
+                "start_at": "2023-08-16T17:36:53.167216Z",
+                "completed_at": "2023-08-17T05:36:37Z",
+                "task_members": [
+                    {
+                        "username": "tm1",
+                        "email": "tm1@gmail.com",
+                        "password": "pbkdf2_sha256$600000$7QpHhBfUFPvIbkEa4ccg8X$2bIul03a2LkoyPMRwxRn0N3Pd47r6u7ZwtZNj4vXMvk=",
+                        "role": "Team memeber"
+                    }
+                ]
+            },
+        ]
+    post:{
+            "task_name": "task3",
+            "team_id": 24,
+            "task_members": ["tm1","tm5"]
+        }
+    put/patch:{
+            "task_name": "task3",
+            "team_id": 24,
+            "members_remove":[],
+            "members_add":[]
+
+        }

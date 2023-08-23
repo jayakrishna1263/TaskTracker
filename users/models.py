@@ -9,7 +9,7 @@ from django.contrib.auth.models import AbstractUser,PermissionsMixin
 USER_CHOICES = (
     ("Manager","Manager"),
     ("Team leader","Team leader"),
-    ("Team memeber","Team memeber"),
+    ("Team member","Team member"),
 )
 STATUS_CHOICES = (
     ("Created","Created"),
@@ -30,7 +30,7 @@ class CustomUser(AbstractUser,PermissionsMixin):
   REQUIRED_FIELDS = ['email','role']
   
   def __str__(self):
-      return "{}".format(self.username+self.role)
+      return "{}".format(self.username)
   
 class Team(models.Model):
     team_name=models.CharField(max_length=100,unique = True)
@@ -64,18 +64,23 @@ class Task(models.Model):
 
 class TeamMember(models.Model):
     team_id=models.ForeignKey(Team, on_delete=models.CASCADE)
-    member_id=models.ForeignKey(CustomUser, on_delete=models.CASCADE,limit_choices_to={'role': "Team memeber"})
+    member_id=models.ForeignKey(CustomUser, on_delete=models.CASCADE,limit_choices_to={'role': "Team member"})
     
     
     class Meta:
        unique_together = ("team_id","member_id")
+    
+    def __str__(self):
+      return "{}".format(str(self.team_id)+" "+str(self.member_id))
+  
 
 
 class TaskAssignment(models.Model):
     task_id=models.ForeignKey(Task, on_delete=models.CASCADE)
-    member_id=models.ForeignKey(CustomUser, on_delete=models.CASCADE,limit_choices_to={'role': "Team memeber"})
+    member_id=models.ForeignKey(CustomUser, on_delete=models.CASCADE,limit_choices_to={'role': "Team member"})
     
     class Meta:
        unique_together = ("task_id", "member_id")
-    
+    def __str__(self):
+      return "{}".format(str(self.task_id)+" "+str(self.member_id))
 

@@ -11,8 +11,7 @@ class UserAdminConfig(admin.ModelAdmin):
     fields=['username','email','password','role']
 class TeamAdminConfig(admin.ModelAdmin):
     model = Team
-    list_display = ('id','team_name','team_id', 'status',
-                    'start_at')
+    list_display = ('id','team_name','team_lead')
 class TaskAdminConfig(admin.ModelAdmin):
     model = Task
     list_display = ('id','task_name','team_id', 'status',
@@ -20,7 +19,7 @@ class TaskAdminConfig(admin.ModelAdmin):
 
 
 admin.site.register(CustomUser,UserAdminConfig)
-admin.site.register(Team)
+admin.site.register(Team,TeamAdminConfig)
 admin.site.register(Task,TaskAdminConfig)
 admin.site.register(TeamMember)
 admin.site.register(TaskAssignment)
